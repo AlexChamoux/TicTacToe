@@ -4,33 +4,30 @@ import java.util.Scanner;
 
 public class UserInteraction {
     private final Scanner scanner;
+    private View view;
 
     public UserInteraction(){
         this.scanner = new Scanner(System.in);
-    }
-
-    public void displayBoard(String boardRepresentation){
-        System.out.println(boardRepresentation);
+        this.view = new View();
     }
 
     public int[] getMoveFromPlayer(String currentPlayerRepresentation, Cell[][] board, int size) {
         while (true) {
-            System.out.println("Veuillez sélectionner l'emplacement de votre coup en le désignant par son numéro de colonne et de ligne (ex: en haut au milieu = 1 et 2 )");
-            System.out.println("Au joueur utilisant les " + currentPlayerRepresentation.trim() + ". Entrez votre coup.");
+            view.displayTextAndVariable(currentPlayerRepresentation);
 
-            System.out.println("Numéro de ligne");
+            view.displayText("Numéro de ligne");
             int row = scanner.nextInt() - 1;
 
-            System.out.println("Numéro de colonne");
+            view.displayText("Numéro de colonne");
             int col = scanner.nextInt() - 1;
 
             if (row < 0 || row >= size || col < 0 || col >= size) {
-                System.out.println("Coordonnées invalides. Les numéros doivent être entre 1 et 3.");
+                view.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et 3.");
                 continue;
             }
 
             if (!board[row][col].getRepresentation().trim().isEmpty()) {
-                System.out.println("Cette case est déjà occupée. Veuillez choisir une autre case.");
+                view.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
                 continue;
             }
 
@@ -38,13 +35,5 @@ public class UserInteraction {
         }
     }
 
-    public void winGame(String boardRepresentation, String winnerRepresentation) {
-        System.out.println(boardRepresentation);
-        System.out.println("Félicitations, le joueur " + winnerRepresentation.trim() + " a gagné !!!");
-    }
 
-    public void drawGame(String boardRepresentation) {
-        System.out.println(boardRepresentation);
-        System.out.println("Match nul !!! La grille est pleine. Recommencez");
-    }
 }

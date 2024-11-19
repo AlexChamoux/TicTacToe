@@ -7,9 +7,11 @@ public class TicTacToe {
     private Player playerO;
     private Player currentPlayer;
     private UserInteraction userInteraction;
+    private View view;
 
     public TicTacToe(){
         this.userInteraction = new UserInteraction();
+        this.view = new View();
         this.board = new Cell[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -51,19 +53,21 @@ public class TicTacToe {
 
     public void play() {
         while (true) {
-            userInteraction.displayBoard(display());
+            view.displayBoard(display());
+
+
 
             int[] move = userInteraction.getMoveFromPlayer(currentPlayer.getRepresentation(), board, size);
 
             setOwner(move[0], move[1]);
 
             if (isOver()) {
-                userInteraction.winGame(display(), currentPlayer.getRepresentation());
+                view.winGame(display(), currentPlayer.getRepresentation());
                 break;
             }
 
             if(isBoardFull()){
-                userInteraction.drawGame(display());
+                view.drawGame(display());
                 break;
             }
 
