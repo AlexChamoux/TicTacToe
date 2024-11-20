@@ -1,5 +1,11 @@
 package fr.le_campus_numerique.java.TicTacToe;
 
+import fr.le_campus_numerique.java.TicTacToe.player.ArtificialPlayer;
+import fr.le_campus_numerique.java.TicTacToe.player.HumanPlayer;
+import fr.le_campus_numerique.java.TicTacToe.player.Player;
+import fr.le_campus_numerique.java.TicTacToe.view.UserInteraction;
+import fr.le_campus_numerique.java.TicTacToe.view.View;
+
 public class TicTacToe {
     private static final int size = 3;
     private Cell[][] board;
@@ -18,9 +24,6 @@ public class TicTacToe {
                 board[i][j] = new Cell();
             }
         }
-        this.playerX = new Player(" X ");
-        this.playerO = new Player(" O ");
-        this.currentPlayer = playerX;
     }
 
     public String display(){
@@ -52,14 +55,31 @@ public class TicTacToe {
     }
 
     public void play() {
+        int choice = userInteraction.typeOfPlayer();
+
+        if (choice == 1) {
+            playerX = new HumanPlayer(" X ");
+            playerO = new HumanPlayer(" O ");
+        }else if (choice == 2) {
+            playerX = new HumanPlayer(" X ");
+            playerO = new ArtificialPlayer(" O ");
+        }else if (choice == 3) {
+            playerX = new ArtificialPlayer(" X ");
+            playerO = new ArtificialPlayer(" O ");
+        }
+
+        currentPlayer = playerX;
+
         while (true) {
             view.displayBoard(display());
 
-
-
-            int[] move = userInteraction.getMoveFromPlayer(currentPlayer.getRepresentation(), board, size);
-
-            setOwner(move[0], move[1]);
+            if(currentPlayer instanceof HumanPlayer) {
+                int[] move = userInteraction.getMoveFromHumanPlayer(currentPlayer.getRepresentation(), board, size);
+                setOwner(move[0], move[1]);
+            }else if (currentPlayer instanceof ArtificialPlayer) {
+                int[] move = userInteraction.getMoveFromComputer(board, size);
+                setOwner(move[0], move[1]);
+            }
 
             if (isOver()) {
                 view.winGame(display(), currentPlayer.getRepresentation());

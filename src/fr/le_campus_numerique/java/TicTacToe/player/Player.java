@@ -1,7 +1,7 @@
 
-package fr.le_campus_numerique.java.TicTacToe;
+package fr.le_campus_numerique.java.TicTacToe.player;
 
-public class Player {
+public abstract class Player {
     String representation;
 
     public Player(String representation) {

@@ -1,10 +1,9 @@
-package fr.le_campus_numerique.java.TicTacToe;
+package fr.le_campus_numerique.java.TicTacToe.player;
 
 public class HumanPlayer extends Player {
-    private UserInteraction userInteraction;
 
-    public HumanPlayer(String representation, UserInteraction userInteraction) {
+    public HumanPlayer(String representation) {
         super(representation);
-        this.userInteraction = userInteraction;
     }
+
 }

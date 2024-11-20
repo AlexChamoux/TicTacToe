@@ -1,0 +1,20 @@
+# Dossier IntelliJ IDEA
+.idea/
+*.iml
+
+# Dossier et fichiers de build
+/out/
+/build/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers logs
+*.log
+
+# Configuration spécifique au système
+*.class
+*.jar
+*.war
+*.ear
