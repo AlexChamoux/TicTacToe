@@ -43,7 +43,7 @@ public class TicTacToe {
     }
 
     public void setOwner(int row, int col) {
-        board[row][col].setRepresentation(currentPlayer.getRepresentation());
+        board[row][col].setState(currentPlayer.getState());
     }
 
     public void switchPlayer() {
@@ -58,14 +58,14 @@ public class TicTacToe {
         int choice = userInteraction.typeOfPlayer();
 
         if (choice == 1) {
-            playerX = new HumanPlayer(" X ");
-            playerO = new HumanPlayer(" O ");
+            playerX = new HumanPlayer(State.X);
+            playerO = new HumanPlayer(State.O);
         }else if (choice == 2) {
-            playerX = new HumanPlayer(" X ");
-            playerO = new ArtificialPlayer(" O ");
+            playerX = new HumanPlayer(State.X);
+            playerO = new ArtificialPlayer(State.O);
         }else if (choice == 3) {
-            playerX = new ArtificialPlayer(" X ");
-            playerO = new ArtificialPlayer(" O ");
+            playerX = new ArtificialPlayer(State.X);
+            playerO = new ArtificialPlayer(State.O);
         }
 
         currentPlayer = playerX;
@@ -96,28 +96,55 @@ public class TicTacToe {
     }
 
     public boolean isOver() {
-        String currentSymbol = currentPlayer.getRepresentation().trim();
+        State currentState = currentPlayer.getState();
 
         for (int i = 0; i < size; i++) {
-            if (checkLine(i, 0, 0, 1, currentSymbol) || checkLine(0, i, 1, 0, currentSymbol)) {
-                return true;
-            }
+                if(checkLine(i, currentState) || checkColumn(i, currentState) || checkFirstDiagonal(currentState) || checkSecondDiagonal(currentState)){
+                    return true;
+                }
         }
-
-        if (checkLine(0, 0, 1, 1, currentSymbol) || checkLine(0, size - 1, 1, -1, currentSymbol)) {
-            return true;
-        }
-
         return false;
     }
 
-    private boolean checkLine(int startRow, int startCol, int rowIncrement, int colIncrement, String currentSymbol) {
-        for (int i = 0; i < size; i++) {
-            int row = startRow + i * rowIncrement;
-            int col = startCol + i * colIncrement;
-            if (!board[row][col].getRepresentation().trim().equals(currentSymbol)) {
+    private boolean checkLine(int row, State currentState){
+        for (int k = 0; k < 3; k++) { // 3 correspond aux nombres de cellules qui doivent être égal pour valider
+            if (exist(row, k) && !(board[row][k].getState() == currentState)){
                 return false;
             }
+        }
+        return true;
+    }
+
+    private boolean checkColumn(int col, State currentState){
+        for (int k = 0; k < 3; k++) {
+            if (exist(col, k) && !(board[k][col].getState() == currentState)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkFirstDiagonal(State currentState){
+        for (int i = 0; i < 3; i++) {
+            if (exist(i,i) && !(board[i][i].getState() == currentState)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkSecondDiagonal(State currentState){
+        for (int i = 0; i < 3; i++) {
+            if (exist(i,(size-1)-i) && !(board[i][(size-1)-i].getState() == currentState)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean exist(int x, int y){
+        if (x < 0 || x > size - 1 || y < 0 || y > size - 1){
+            return false;
         }
         return true;
     }
@@ -125,7 +152,7 @@ public class TicTacToe {
     public boolean isBoardFull() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (board[i][j].getRepresentation().trim().isEmpty()) {
+                if (board[i][j].isEmpty()) {
                     return false;
                 }
             }

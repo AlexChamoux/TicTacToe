@@ -1,17 +1,27 @@
 package fr.le_campus_numerique.java.TicTacToe;
 
 public class Cell {
-    private String representation;
 
-    public Cell() {
-        this.representation = "   ";
+    private State state;
+
+    public Cell(){
+        this.state = State.EMPTY;
     }
 
     public String getRepresentation(){
-        return representation;
+        return this.state.getRepresentation();
     }
 
-    public void setRepresentation(String representation){
-        this.representation = representation;
+    public State getState() {
+        return this.state;
     }
+
+    public void setState(State state){
+        this.state = state;
+    }
+
+    public boolean isEmpty(){
+        return state == State.EMPTY;
+    }
+
 }

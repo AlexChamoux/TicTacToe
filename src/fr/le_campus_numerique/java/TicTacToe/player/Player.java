@@ -1,19 +1,25 @@
 
 package fr.le_campus_numerique.java.TicTacToe.player;
 
-public abstract class Player {
-    String representation;
+import fr.le_campus_numerique.java.TicTacToe.State;
 
-    public Player(String representation) {
-        if (representation.equals(" X ") || representation.equals(" O ")) {
-            this.representation = representation;
-        } else {
-            throw new IllegalArgumentException("La représentation doit être ' X ' ou ' O '.");
-        }
+public abstract class Player {
+
+    private State state;
+
+    public Player(State state) {
+        this.state = state;
     }
 
-    public String getRepresentation() {
+    public String getRepresentation(){
+        return state.getRepresentation();
+    }
 
-        return representation;
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }
