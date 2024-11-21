@@ -1,12 +1,15 @@
-package fr.le_campus_numerique.java.TicTacToe;
+package fr.le_campus_numerique.java.TicTacToe.game.tictacttoe;
 
-import fr.le_campus_numerique.java.TicTacToe.player.ArtificialPlayer;
-import fr.le_campus_numerique.java.TicTacToe.player.HumanPlayer;
-import fr.le_campus_numerique.java.TicTacToe.player.Player;
-import fr.le_campus_numerique.java.TicTacToe.view.UserInteraction;
-import fr.le_campus_numerique.java.TicTacToe.view.View;
+import fr.le_campus_numerique.java.TicTacToe.Cell;
+import fr.le_campus_numerique.java.TicTacToe.State;
+import fr.le_campus_numerique.java.TicTacToe.game.BoardGame;
+import fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.player.ArtificialPlayer;
+import fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.player.HumanPlayer;
+import fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.player.Player;
+import fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.user_in_out.UserInteraction;
+import fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.user_in_out.View;
 
-public class TicTacToe {
+public class TicTacToe extends BoardGame {
     private static final int size = 3;
     private Cell[][] board;
     private Player playerX;

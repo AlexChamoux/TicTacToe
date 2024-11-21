@@ -1,5 +1,5 @@
 
-package fr.le_campus_numerique.java.TicTacToe.player;
+package fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.player;
 
 import fr.le_campus_numerique.java.TicTacToe.State;
 

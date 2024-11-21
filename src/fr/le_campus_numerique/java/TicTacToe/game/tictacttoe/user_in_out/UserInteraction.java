@@ -1,5 +1,5 @@
 
-package fr.le_campus_numerique.java.TicTacToe.view;
+package fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.user_in_out;
 
 import fr.le_campus_numerique.java.TicTacToe.Cell;
 import java.util.Scanner;

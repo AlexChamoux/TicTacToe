@@ -1,5 +1,7 @@
 package fr.le_campus_numerique.java.TicTacToe;
 
+import fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.TicTacToe;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
