@@ -1,20 +1,22 @@
 
-package fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.user_in_out;
+package fr.le_campus_numerique.java.TicTacToe.user_in_out;
+
+import fr.le_campus_numerique.java.TicTacToe.game.board.State;
 
 public class View {
 
-    public void displayTextAndVariable(String currentPlayerRepresentation){
+    public void displayTextAndVariable(State currentPlayerState){
         System.out.println("Veuillez sélectionner l'emplacement de votre coup en le désignant par son numéro de ligne et de colonne (ex: en haut au milieu = 1 et 2 )");
-        System.out.println("Au joueur utilisant les " + currentPlayerRepresentation.trim() + ". Entrez votre coup.");
+        System.out.println("Au joueur utilisant les " + currentPlayerState + ". Entrez votre coup.");
     }
 
     public void displayText(String message){
         System.out.println(message);
     }
 
-    public void winGame(String boardRepresentation, String winnerRepresentation) {
+    public void winGame(String boardRepresentation, State winnerState) {
         System.out.println(boardRepresentation);
-        System.out.println("Félicitations, le joueur " + winnerRepresentation.trim() + " a gagné !!!");
+        System.out.println("Félicitations, le joueur " + winnerState + " a gagné !!!");
     }
 
     public void drawGame(String boardRepresentation) {

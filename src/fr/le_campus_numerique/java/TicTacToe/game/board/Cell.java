@@ -1,4 +1,4 @@
-package fr.le_campus_numerique.java.TicTacToe;
+package fr.le_campus_numerique.java.TicTacToe.game.board;
 
 public class Cell {
 

@@ -1,6 +1,6 @@
-package fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.player;
+package fr.le_campus_numerique.java.TicTacToe.player;
 
-import fr.le_campus_numerique.java.TicTacToe.State;
+import fr.le_campus_numerique.java.TicTacToe.game.board.State;
 
 public class ArtificialPlayer extends Player {
 
