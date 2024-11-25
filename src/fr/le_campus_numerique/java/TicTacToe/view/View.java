@@ -1,13 +1,23 @@
 
-package fr.le_campus_numerique.java.TicTacToe.user_in_out;
+package fr.le_campus_numerique.java.TicTacToe.view;
 
-import fr.le_campus_numerique.java.TicTacToe.game.board.State;
+import fr.le_campus_numerique.java.TicTacToe.model.State;
 
 public class View {
 
     public void displayTextAndVariable(State currentPlayerState){
         System.out.println("Veuillez sélectionner l'emplacement de votre coup en le désignant par son numéro de ligne et de colonne (ex: en haut au milieu = 1 et 2 )");
         System.out.println("Au joueur utilisant les " + currentPlayerState + ". Entrez votre coup.");
+    }
+
+    public void displayHumanMoveConnectFour(State currentPlayerState){
+        System.out.println("Veuillez sélectionner une colonne pour mettre votre jeton");
+        if(currentPlayerState == State.X) {
+            System.out.println("Au joueur utilisant les bleus. Entrez votre coup.");
+        }else{
+            System.out.println("Au joueur utilisant les rouges.");
+        }
+
     }
 
     public void displayText(String message){

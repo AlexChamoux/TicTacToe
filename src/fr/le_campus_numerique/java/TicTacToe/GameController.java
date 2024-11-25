@@ -1,11 +1,11 @@
 package fr.le_campus_numerique.java.TicTacToe;
 
-import fr.le_campus_numerique.java.TicTacToe.game.BoardGame;
-import fr.le_campus_numerique.java.TicTacToe.game.gomoku.Gomoku;
-import fr.le_campus_numerique.java.TicTacToe.game.tictacttoe.TicTacToe;
-import fr.le_campus_numerique.java.TicTacToe.game.conect4.ConnectFour;
-import fr.le_campus_numerique.java.TicTacToe.user_in_out.UserInteraction;
-import fr.le_campus_numerique.java.TicTacToe.user_in_out.View;
+import fr.le_campus_numerique.java.TicTacToe.controller.BoardGame;
+import fr.le_campus_numerique.java.TicTacToe.controller.gomoku.Gomoku;
+import fr.le_campus_numerique.java.TicTacToe.controller.tictacttoe.TicTacToe;
+import fr.le_campus_numerique.java.TicTacToe.controller.conect4.ConnectFour;
+import fr.le_campus_numerique.java.TicTacToe.root.UserInteraction;
+import fr.le_campus_numerique.java.TicTacToe.view.View;
 
 public class GameController {
     private UserInteraction userInteraction;

@@ -1,8 +1,10 @@
 
-package fr.le_campus_numerique.java.TicTacToe.user_in_out;
+package fr.le_campus_numerique.java.TicTacToe.root;
 
-import fr.le_campus_numerique.java.TicTacToe.game.board.Cell;
-import fr.le_campus_numerique.java.TicTacToe.game.board.State;
+import fr.le_campus_numerique.java.TicTacToe.model.Cell;
+import fr.le_campus_numerique.java.TicTacToe.model.State;
+import fr.le_campus_numerique.java.TicTacToe.view.View;
+
 import java.util.Scanner;
 import java.security.SecureRandom;
 
@@ -33,6 +35,35 @@ public class UserInteraction {
 
             if (!board[row][col].isEmpty()) {
                 view.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
+                continue;
+            }
+
+            return new int[]{row, col};
+        }
+    }
+
+    public int[] getMoveFromHumanPlayerConnectFour(State currentPlayerState, Cell[][] board, int sizeLine, int sizeColumn) {
+        while (true) {
+            view.displayHumanMoveConnectFour(currentPlayerState);
+
+            view.displayText("Numéro de colonne");
+            int col = scanner.nextInt() - 1;
+
+            if (col < 0 || col >= sizeColumn) {
+                view.displayText("Colonne invalide. Veuillez entrer un numéro entre 1 et " + sizeColumn + ".");
+                continue;
+            }
+
+            int row = -1;
+            for (int i = sizeLine - 1; i >= 0; i--) {
+                if (board[i][col].isEmpty()) {
+                    row = i;
+                    break;
+                }
+            }
+
+            if (row == -1) {
+                view.displayText("Cette colonne est pleine. Veuillez choisir une autre colonne.");
                 continue;
             }
 
