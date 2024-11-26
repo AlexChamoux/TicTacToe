@@ -6,7 +6,7 @@ import fr.le_campus_numerique.java.TicTacToe.model.State;
 public class View {
 
     public void displayTextAndVariable(State currentPlayerState){
-        System.out.println("Veuillez sélectionner l'emplacement de votre coup en le désignant par son numéro de ligne et de colonne (ex: en haut au milieu = 1 et 2 )");
+        System.out.println("Veuillez sélectionner l'emplacement de votre coup en le désignant par un numéro.");
         System.out.println("Au joueur utilisant les " + currentPlayerState + ". Entrez votre coup.");
     }
 

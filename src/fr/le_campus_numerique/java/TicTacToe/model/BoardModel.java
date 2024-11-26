@@ -65,7 +65,7 @@ public class BoardModel {
         board[row][col].setState(currentPlayer.getState());
     }
 
-    public void switchPlayer(Player currentPlayer, Player playerX, Player playerO) {
+    public void switchPlayer() {
         if(currentPlayer == playerX){
             currentPlayer = playerO;
         }else{

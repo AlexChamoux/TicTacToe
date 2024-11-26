@@ -26,6 +26,28 @@ public class BoardController {
     }
 
     public void play() {
+        choosePlayer();
+
+        while (true) {
+            view.displayBoard(boardView.display(model.getSizeLine(), model.getSizeColumn(), model.getBoard()));
+
+            move();
+
+            if (model.isOver()) {
+                view.winGame(boardView.display(model.getSizeLine(), model.getSizeColumn(), model.getBoard()), model.getCurrentPlayer().getState());
+                break;
+            }
+
+            if(model.isBoardFull()){
+                view.drawGame(boardView.display(model.getSizeLine(), model.getSizeColumn(), model.getBoard()));
+                break;
+            }
+
+            model.switchPlayer();
+        }
+    }
+
+    private void choosePlayer() {
         model = gameController.wichGamePlay();
 
         int choice = userInteraction.typeOfPlayer();
@@ -40,42 +62,27 @@ public class BoardController {
             model.setPlayerX(new ArtificialPlayer(State.X));
             model.setPlayerO(new ArtificialPlayer(State.O));
         }
-
         model.setCurrentPlayer(model.getPlayerX());
-
-        while (true) {
-            view.displayBoard(boardView.display(model.getSizeLine(), model.getSizeColumn(), model.getBoard()));
-
-            if(!(model instanceof ConnectFour)) {
-                if (model.getCurrentPlayer() instanceof HumanPlayer) {
-                    int[] move = userInteraction.getMoveFromHumanPlayer(model.getCurrentPlayer().getState(), model.getBoard(), model.getSizeLine(), model.getSizeColumn());
-                    model.setOwner(move[0], move[1], model.getCurrentPlayer());
-                } else if (model.getCurrentPlayer() instanceof ArtificialPlayer) {
-                    int[] move = userInteraction.getMoveFromComputer(model.getBoard(), model.getSizeLine(), model.getSizeColumn());
-                    model.setOwner(move[0], move[1], model.getCurrentPlayer());
-                }
-            }else{
-                if (model.getCurrentPlayer() instanceof HumanPlayer) {
-                    int[] move = userInteraction.getMoveFromHumanPlayerConnectFour(model.getCurrentPlayer().getState(), model.getBoard(), model.getSizeLine(), model.getSizeColumn());
-                    model.setOwner(move[0], move[1], model.getCurrentPlayer());
-                } else if (model.getCurrentPlayer() instanceof ArtificialPlayer) {
-                    int[] move = userInteraction.getMoveFromComputerConnectFour(model.getBoard(), model.getSizeLine(), model.getSizeColumn());
-                    model.setOwner(move[0], move[1], model.getCurrentPlayer());
-                }
-            }
-
-            if (model.isOver()) {
-                view.winGame(boardView.display(model.getSizeLine(), model.getSizeColumn(), model.getBoard()), model.getCurrentPlayer().getState());
-                break;
-            }
-
-            if(model.isBoardFull()){
-                view.drawGame(boardView.display(model.getSizeLine(), model.getSizeColumn(), model.getBoard()));
-                break;
-            }
-
-            model.switchPlayer(model.getCurrentPlayer(), model.getPlayerX(), model.getPlayerO());
-        }
     }
+
+    private void move() {
+        int[] move;
+        if (model.getCurrentPlayer() instanceof HumanPlayer) {
+            if(model instanceof ConnectFour) {
+                move = userInteraction.getMoveFromHumanPlayerConnectFour(model.getCurrentPlayer().getState(), model.getBoard(), model.getSizeLine(), model.getSizeColumn());
+            }else{
+                move = userInteraction.getMoveFromHumanPlayer(model.getCurrentPlayer().getState(), model.getBoard(), model.getSizeLine(), model.getSizeColumn());
+            }
+        } else {
+            if(model instanceof ConnectFour) {
+                move = userInteraction.getMoveFromComputerConnectFour(model.getBoard(), model.getSizeLine(), model.getSizeColumn());
+            }else{
+                move = userInteraction.getMoveFromComputer(model.getBoard(), model.getSizeLine(), model.getSizeColumn());
+            }
+        }
+        model.setOwner(move[0], move[1], model.getCurrentPlayer());
+    }
+
+
 
 }

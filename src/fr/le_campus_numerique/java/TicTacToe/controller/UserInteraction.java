@@ -20,25 +20,29 @@ public class UserInteraction {
 
     public int[] getMoveFromHumanPlayer(State currentPlayerState, Cell[][] board, int sizeLine, int sizeColumn) {
         while (true) {
-            view.displayTextAndVariable(currentPlayerState);
+            try {
+                view.displayTextAndVariable(currentPlayerState);
 
-            view.displayText("Numéro de ligne");
-            int row = scanner.nextInt() - 1;
+                view.displayText("Numéro de ligne");
+                int row = Integer.parseInt(scanner.nextLine()) - 1;
 
-            view.displayText("Numéro de colonne");
-            int col = scanner.nextInt() - 1;
+                view.displayText("Numéro de colonne");
+                int col = Integer.parseInt(scanner.nextLine()) - 1;
 
-            if (row < 0 || row >= sizeLine || col < 0 || col >= sizeColumn) {
-                view.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et " + sizeColumn + ".");
-                continue;
+                if (row < 0 || row >= sizeLine || col < 0 || col >= sizeColumn) {
+                    view.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et " + sizeColumn + ".");
+                    continue;
+                }
+
+                if (!board[row][col].isEmpty()) {
+                    view.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
+                    continue;
+                }
+
+                return new int[]{row, col};
+            }catch (NumberFormatException e){
+                view.displayText("Entrée invalide. Veuillez entrer un nombre.");
             }
-
-            if (!board[row][col].isEmpty()) {
-                view.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
-                continue;
-            }
-
-            return new int[]{row, col};
         }
     }
 
