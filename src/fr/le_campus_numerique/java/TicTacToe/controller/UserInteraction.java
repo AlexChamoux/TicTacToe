@@ -1,5 +1,5 @@
 
-package fr.le_campus_numerique.java.TicTacToe.root;
+package fr.le_campus_numerique.java.TicTacToe.controller;
 
 import fr.le_campus_numerique.java.TicTacToe.model.Cell;
 import fr.le_campus_numerique.java.TicTacToe.model.State;
@@ -29,7 +29,7 @@ public class UserInteraction {
             int col = scanner.nextInt() - 1;
 
             if (row < 0 || row >= sizeLine || col < 0 || col >= sizeColumn) {
-                view.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et 3.");
+                view.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et " + sizeColumn + ".");
                 continue;
             }
 
@@ -94,8 +94,30 @@ public class UserInteraction {
         }
     }
 
-    public String getUserString(){
-        return scanner.nextLine();
+    public int[] getMoveFromComputerConnectFour(Cell[][] board, int sizeLine, int sizeColumn) {
+        while (true) {
+            int col = secureRandom.nextInt(sizeColumn);
+
+            if (col < 0 || col >= sizeColumn) {
+                view.displayText("Colonne invalide. Veuillez entrer un numéro entre 1 et " + sizeColumn + ".");
+                continue;
+            }
+
+            int row = -1;
+            for (int i = sizeLine - 1; i >= 0; i--) {
+                if (board[i][col].isEmpty()) {
+                    row = i;
+                    break;
+                }
+            }
+
+            if (row == -1) {
+                view.displayText("Cette colonne est pleine. Veuillez choisir une autre colonne.");
+                continue;
+            }
+
+            return new int[]{row, col};
+        }
     }
 
     public int getUserInt(){
