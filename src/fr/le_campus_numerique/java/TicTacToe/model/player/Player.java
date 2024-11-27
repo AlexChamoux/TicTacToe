@@ -1,7 +1,7 @@
 
 package fr.le_campus_numerique.java.TicTacToe.model.player;
 
-import fr.le_campus_numerique.java.TicTacToe.model.State;
+import fr.le_campus_numerique.java.TicTacToe.model.cell.State;
 
 public abstract class Player {
 

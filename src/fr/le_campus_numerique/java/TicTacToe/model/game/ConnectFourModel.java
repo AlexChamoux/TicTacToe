@@ -1,19 +1,11 @@
-package fr.le_campus_numerique.java.TicTacToe.model.connect4;
+package fr.le_campus_numerique.java.TicTacToe.model.game;
 
 import fr.le_campus_numerique.java.TicTacToe.model.BoardModel;
-import fr.le_campus_numerique.java.TicTacToe.model.State;
-import fr.le_campus_numerique.java.TicTacToe.model.player.ArtificialPlayer;
-import fr.le_campus_numerique.java.TicTacToe.model.player.HumanPlayer;
-import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
-import fr.le_campus_numerique.java.TicTacToe.controller.BoardController;
 
-public class ConnectFour extends BoardModel {
-    BoardView boardView;
-    BoardController boardController;
+public class ConnectFourModel extends BoardModel {
 
-    public ConnectFour() {
+    public ConnectFourModel() {
         super(6, 7, 4);
-        this.boardView = new BoardView();
     }
 
 //    public void play() {
