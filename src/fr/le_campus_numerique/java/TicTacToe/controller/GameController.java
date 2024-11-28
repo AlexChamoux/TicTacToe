@@ -2,78 +2,48 @@ package fr.le_campus_numerique.java.TicTacToe.controller;
 
 
 import fr.le_campus_numerique.java.TicTacToe.model.BoardModel;
-import fr.le_campus_numerique.java.TicTacToe.model.cell.Cell;
-import fr.le_campus_numerique.java.TicTacToe.model.cell.State;
+import fr.le_campus_numerique.java.TicTacToe.model.board.Board;
+import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 import fr.le_campus_numerique.java.TicTacToe.model.player.HumanPlayer;
 import fr.le_campus_numerique.java.TicTacToe.model.player.ArtificialPlayer;
 import fr.le_campus_numerique.java.TicTacToe.model.player.Player;
 import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
-import fr.le_campus_numerique.java.TicTacToe.view.game.DisplayBoardView;
-import fr.le_campus_numerique.java.TicTacToe.controller.game.TicTacToeController;
-import fr.le_campus_numerique.java.TicTacToe.controller.game.GomokuController;
-import fr.le_campus_numerique.java.TicTacToe.controller.game.ConnectFourController;
 
 public abstract class GameController {
     protected UserInteraction userInteraction;
     protected BoardModel model;
-    protected GameController game;
     protected BoardView boardView;
-    protected DisplayBoardView displayBoardView;
-    protected Cell[][] board;
     protected Player playerX;
     protected Player playerO;
     protected Player currentPlayer;
+    protected Board board;
+    protected int nbIdenticalCell;
 
 
-    public GameController(int sizeLine, int sizeColumn, int nbIdenticalCell) {
-        this.board = new Cell[sizeLine][sizeColumn];
-        for (int i = 0; i < sizeLine; i++) {
-            for (int j = 0; j < sizeColumn; j++) {
-                board[i][j] = new Cell();
-            }
-        }
+    public GameController(int sizeLine, int sizeColumn, int nbIdenticalCell, BoardView view) {
+        this.board = new Board(sizeLine, sizeColumn);
+        this.nbIdenticalCell = nbIdenticalCell;
         this.userInteraction = new UserInteraction();
-        this.model = new BoardModel();
-        this.boardView = new BoardView();
-    }
-
-    public void wichGamePlay() {
-        boardView.displayText("Bien le bonjour joueur émérite, à quel jeu désires-tu jouer ?");
-        boardView.displayText("Tape 1 pour jouer au Morpion, 2 pour jouer au Gomoku, et 3 pour le Puissance 4");
-        int choice = userInteraction.getUserInt();
-
-        switch (choice) {
-            case 1:
-                game = new TicTacToeController();
-                break;
-            case 2:
-                game = new GomokuController();
-                break;
-            case 3:
-                game = new ConnectFourController();
-                break;
-            default:
-                boardView.displayText("Choix invalide. Merci de réessayer.");
-        }
-
-        game.start();
+        this.model = new BoardModel(board);
+        this.boardView = view;
     }
 
     public void start() {
         definedPlayer();
 
         while (true) {
-            boardView.displayBoard(displayBoardView.display(model.getSizeLine(), sizeColumn, board));
+            boardView.displayBoard(boardView.display(board.getSizeLine(), board.getSizeColumn(), board.getBoardState()));
 
             move();
 
-            if (model.isOver(currentPlayer, sizeLine, sizeColumn, nbIdenticalCell, board)) {
-                boardView.winGame(displayBoardView.display(sizeLine, sizeColumn, board), currentPlayer.getState());
+            if (model.isOver(currentPlayer, nbIdenticalCell)) {
+                boardView.winGame(boardView.display(board.getSizeLine(), board.getSizeColumn(), board.getBoardState()),
+                        currentPlayer.getState());
                 break;
             }
 
-            if(model.isBoardFull(sizeLine, sizeColumn, board)){
-                boardView.drawGame(displayBoardView.display(sizeLine, sizeColumn, board));
+            if(board.isFull()){
+                boardView.drawGame(boardView.display(board.getSizeLine(), board.getSizeColumn(), board.getBoardState()));
                 break;
             }
 
@@ -82,6 +52,7 @@ public abstract class GameController {
     }
 
     private void definedPlayer() {
+
 
         int choice = userInteraction.typeOfPlayer();
 

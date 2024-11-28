@@ -1,4 +1,4 @@
-package fr.le_campus_numerique.java.TicTacToe.model.cell;
+package fr.le_campus_numerique.java.TicTacToe.model.board;
 
 public enum State {
         EMPTY("   "),

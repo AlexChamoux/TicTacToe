@@ -1,8 +1,8 @@
 
 package fr.le_campus_numerique.java.TicTacToe.controller;
 
-import fr.le_campus_numerique.java.TicTacToe.model.cell.Cell;
-import fr.le_campus_numerique.java.TicTacToe.model.cell.State;
+import fr.le_campus_numerique.java.TicTacToe.model.BoardModel;
+import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
 
 import java.util.Scanner;
@@ -15,10 +15,13 @@ public class UserInteraction {
 
     public UserInteraction(){
         this.scanner = new Scanner(System.in);
-        this.boardView = new BoardView();
     }
 
-    public int[] getMoveFromHumanPlayer(State currentPlayerState, Cell[][] board, int sizeLine, int sizeColumn) {
+    public void setBoardView(BoardView boardView) {
+        this.boardView = boardView;
+    }
+
+    public int[] getMoveFromHumanPlayer(State currentPlayerState, BoardModel model, int sizeLine, int sizeColumn) {
         while (true) {
             try {
                 boardView.displayTextAndVariable(currentPlayerState);
@@ -34,7 +37,7 @@ public class UserInteraction {
                     continue;
                 }
 
-                if (!board[row][col].isEmpty()) {
+                if (model.getCellState(row, col) != State.EMPTY) {
                     boardView.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
                     continue;
                 }
@@ -46,7 +49,7 @@ public class UserInteraction {
         }
     }
 
-    public int[] getMoveFromHumanPlayerConnectFour(State currentPlayerState, Cell[][] board, int sizeLine, int sizeColumn) {
+    public int[] getMoveFromHumanPlayerConnectFour(State currentPlayerState, BoardModel model, int sizeLine, int sizeColumn) {
         while (true) {
             try {
                 boardView.displayHumanMoveConnectFour(currentPlayerState);
@@ -61,7 +64,7 @@ public class UserInteraction {
 
                 int row = -1;
                 for (int i = sizeLine - 1; i >= 0; i--) {
-                    if (board[i][col].isEmpty()) {
+                    if (model.isEmpty(i, col)) {
                         row = i;
                         break;
                     }
@@ -73,7 +76,7 @@ public class UserInteraction {
                 }
 
                 return new int[]{row, col};
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 boardView.displayText("Entrée invalide. Veuillez entrer un nombre.");
             }
         }
@@ -81,19 +84,25 @@ public class UserInteraction {
 
 
     public int typeOfPlayer(){
-        boardView.displayText("Veuillez choisir votre type de partie");
-        boardView.displayText("Taper 1 pour joueur vs joueur, 2 pour joueur vs ordinateur et 3 pour ordi vs ordi");
-        int choice = getUserInt();
+        int choice = 0;
+        if (boardView != null) {
+            boardView.displayText("Veuillez choisir votre type de partie");
+            boardView.displayText("Taper 1 pour joueur vs joueur, 2 pour joueur vs ordinateur et 3 pour ordi vs ordi");
+            choice = getUserInt();
 
-        return choice;
+        }else{
+            System.out.println("boardView est null !!!");
+        }
+            return choice;
+
     }
 
-    public int[] getMoveFromComputer(Cell[][] board, int sizeLine, int sizeColumn) {
+    public int[] getMoveFromComputer(BoardModel model, int sizeLine, int sizeColumn) {
         while (true) {
             int row = secureRandom.nextInt(sizeLine);
             int col = secureRandom.nextInt(sizeColumn);
 
-            if (!board[row][col].isEmpty()) {
+            if (model.isEmpty(row, col)) {
                 System.out.println("Cette case est déjà occupée. Veuillez choisir une autre case.");
                 continue;
             }
@@ -102,7 +111,7 @@ public class UserInteraction {
         }
     }
 
-    public int[] getMoveFromComputerConnectFour(Cell[][] board, int sizeLine, int sizeColumn) {
+    public int[] getMoveFromComputerConnectFour(BoardModel model, int sizeLine, int sizeColumn) {
         while (true) {
             int col = secureRandom.nextInt(sizeColumn);
 
@@ -113,7 +122,7 @@ public class UserInteraction {
 
             int row = -1;
             for (int i = sizeLine - 1; i >= 0; i--) {
-                if (board[i][col].isEmpty()) {
+                if (model.isEmpty(i, col)) {
                     row = i;
                     break;
                 }
@@ -133,7 +142,11 @@ public class UserInteraction {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                boardView.displayText("Entrée invalide. Veuillez entrer un nombre.");
+                if (boardView != null) {
+                    boardView.displayText("Entrée invalide. Veuillez entrer un nombre.");
+                } else {
+                    System.out.println("Entrée invalide. Veuillez entrer un nombre.");
+                }
             }
         }
     }

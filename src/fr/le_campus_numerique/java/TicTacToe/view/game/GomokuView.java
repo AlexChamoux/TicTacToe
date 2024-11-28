@@ -1,9 +1,14 @@
 package fr.le_campus_numerique.java.TicTacToe.view.game;
 
-import fr.le_campus_numerique.java.TicTacToe.model.cell.Cell;
+import fr.le_campus_numerique.java.TicTacToe.controller.GameController;
+import fr.le_campus_numerique.java.TicTacToe.model.board.Cell;
 import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
 
 public class GomokuView extends BoardView {
+
+    public GomokuView(GameController controller) {
+        super(controller);
+    }
 
     public String display(int sizeLine, int sizeColumn, Cell[][] board) {
         StringBuilder displayBoard = new StringBuilder();
