@@ -1,7 +1,5 @@
 package fr.le_campus_numerique.java.TicTacToe.view;
 
-import fr.le_campus_numerique.java.TicTacToe.controller.GameController;
-import fr.le_campus_numerique.java.TicTacToe.model.board.Board;
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 
 public class BoardView {
@@ -46,5 +44,7 @@ public class BoardView {
     public void playAgain(){
         System.out.println("Voulez-vous rejouer ? (oui/non)");
     }
+
+
 
 }

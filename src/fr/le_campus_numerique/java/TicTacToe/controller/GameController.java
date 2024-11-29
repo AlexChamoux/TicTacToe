@@ -8,6 +8,7 @@ import fr.le_campus_numerique.java.TicTacToe.model.player.HumanPlayer;
 import fr.le_campus_numerique.java.TicTacToe.model.player.ArtificialPlayer;
 import fr.le_campus_numerique.java.TicTacToe.model.player.Player;
 import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
+import fr.le_campus_numerique.java.TicTacToe.view.UserInteraction;
 
 public abstract class GameController {
     protected UserInteraction userInteraction;
@@ -18,6 +19,9 @@ public abstract class GameController {
     protected Player currentPlayer;
     protected Board board;
     protected int nbIdenticalCell;
+    protected int sizeLine;
+    protected int sizeColumn;
+    protected int[] move;
 
 
     public GameController(int sizeLine, int sizeColumn, int nbIdenticalCell) {
@@ -26,6 +30,8 @@ public abstract class GameController {
         this.userInteraction = new UserInteraction();
         this.model = new GameRules(board);
         this.boardView = new BoardView();
+        this.sizeLine = sizeLine;
+        this.sizeColumn = sizeColumn;
     }
 
     public void start() {
@@ -52,7 +58,7 @@ public abstract class GameController {
 
     private void playAgain() {
         boardView.playAgain();
-        String choice = userInteraction.playSameGame();
+        String choice = userInteraction.getUserString();
         if (choice.equalsIgnoreCase("oui")) {
             board.clear();
             start();
@@ -63,8 +69,9 @@ public abstract class GameController {
 
     private void definedPlayer() {
 
-
-        int choice = userInteraction.typeOfPlayer();
+        boardView.displayText("Veuillez choisir votre type de partie");
+        boardView.displayText("Taper 1 pour joueur vs joueur, 2 pour joueur vs ordinateur et 3 pour ordi vs ordi");
+        int choice = userInteraction.getUserInt();
 
         if (choice == 1) {
             playerX = new HumanPlayer(State.X);
@@ -79,7 +86,52 @@ public abstract class GameController {
         currentPlayer = playerX;
     }
 
-    public abstract void move();
+    public void move() {
+
+        if (currentPlayer instanceof HumanPlayer) {
+//            move = userInteraction.getMoveFromHumanPlayer(currentPlayer.getState(), model, board.getSizeLine(), board.getSizeColumn());
+
+            while (true) {
+                boardView.displayTextAndVariable(currentPlayer.getState());
+
+                boardView.displayText("Numéro de ligne");
+                int row = userInteraction.getUserInt() - 1;
+
+                boardView.displayText("Numéro de colonne");
+                int col = userInteraction.getUserInt() - 1;
+
+                if (row < 0 || row >= sizeLine || col < 0 || col >= sizeColumn) {
+                    boardView.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et " + sizeColumn + ".");
+                    continue;
+                }
+
+                if (!model.isEmpty(row, col)) {
+                    boardView.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
+                    continue;
+                }
+
+                move = new int[]{row, col};
+                break;
+            }
+
+        } else {
+//            move = userInteraction.getMoveFromComputer(model, board.getSizeLine(), board.getSizeColumn());
+            while (true) {
+                int row = userInteraction.getSecRandom(sizeLine);
+                int col = userInteraction.getSecRandom(sizeColumn);
+
+                if (!model.isEmpty(row, col)) {
+                    System.out.println("Cette case est déjà occupée. Veuillez choisir une autre case.");
+                    continue;
+                }
+
+                move = new int[]{row, col};
+                break;
+            }
+        }
+        model.setPlayerMove(move[0], move[1], currentPlayer);
+    }
+
 
     public void switchPlayer() {
         if(currentPlayer == playerX){

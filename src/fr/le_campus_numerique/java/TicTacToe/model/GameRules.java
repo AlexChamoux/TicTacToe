@@ -16,11 +16,11 @@ public class GameRules {
         return board.isEmpty(row, col);
     }
 
-    public State getCellState(int row, int col) {
-        return board.getCellState(row, col);
-    }
+//    public State getCellState(int row, int col) {
+//        return board.getCellState(row, col);
+//    }
 
-    public void setOwner(int row, int col, Player currentPlayer) {
+    public void setPlayerMove(int row, int col, Player currentPlayer) {
         board.setCellState(row, col, currentPlayer.getState());
     }
 

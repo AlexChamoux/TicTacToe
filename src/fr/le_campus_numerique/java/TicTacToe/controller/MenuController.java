@@ -4,6 +4,7 @@ import fr.le_campus_numerique.java.TicTacToe.controller.game.ConnectFourControll
 import fr.le_campus_numerique.java.TicTacToe.controller.game.GomokuController;
 import fr.le_campus_numerique.java.TicTacToe.controller.game.TicTacToeController;
 import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
+import fr.le_campus_numerique.java.TicTacToe.view.UserInteraction;
 
 public class MenuController {
     protected BoardView boardView;
