@@ -4,7 +4,7 @@ import fr.le_campus_numerique.java.TicTacToe.controller.GameController;
 import fr.le_campus_numerique.java.TicTacToe.model.board.Cell;
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 
-public abstract class BoardView {
+public class BoardView {
     protected GameController controller;
 
     public BoardView(GameController controller) {
@@ -12,7 +12,13 @@ public abstract class BoardView {
     }
 
 
-    public abstract String display(int sizeLine, int sizeColumn, State[][] boardState);
+    public String display(int sizeLine, int sizeColumn, State[][] boardState){
+        return "";
+    }
+
+    public void display(String rep){
+        System.out.println(rep);
+    }
 
     public void displayTextAndVariable(State currentPlayerState){
         System.out.println("Veuillez sélectionner l'emplacement de votre coup en le désignant par un numéro.");
