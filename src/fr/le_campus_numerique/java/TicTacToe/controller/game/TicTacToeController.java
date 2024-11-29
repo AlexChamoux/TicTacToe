@@ -2,12 +2,11 @@ package fr.le_campus_numerique.java.TicTacToe.controller.game;
 
 import fr.le_campus_numerique.java.TicTacToe.controller.GameController;
 import fr.le_campus_numerique.java.TicTacToe.model.player.HumanPlayer;
-import fr.le_campus_numerique.java.TicTacToe.view.game.TicTacToeView;
 
 public class TicTacToeController extends GameController {
 
-    public TicTacToeController(TicTacToeView view) {
-        super(3,3,3, view);
+    public TicTacToeController() {
+        super(3,3,3);
     }
 
     public void move() {

@@ -1,6 +1,6 @@
 package fr.le_campus_numerique.java.TicTacToe;
 
-import fr.le_campus_numerique.java.TicTacToe.controller.game.MenuController;
+import fr.le_campus_numerique.java.TicTacToe.controller.MenuController;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.

@@ -9,7 +9,11 @@ public class Cell {
     }
 
     public String getRepresentation(){
-        return this.state.getRepresentation();
+        return "|" + this.state.getRepresentation();
+    }
+
+    public static String getHorRep(){
+        return "----";
     }
 
     public State getState() {

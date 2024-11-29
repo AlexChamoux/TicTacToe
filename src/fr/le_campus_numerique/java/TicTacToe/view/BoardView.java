@@ -1,20 +1,10 @@
 package fr.le_campus_numerique.java.TicTacToe.view;
 
 import fr.le_campus_numerique.java.TicTacToe.controller.GameController;
-import fr.le_campus_numerique.java.TicTacToe.model.board.Cell;
+import fr.le_campus_numerique.java.TicTacToe.model.board.Board;
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 
 public class BoardView {
-    protected GameController controller;
-
-    public BoardView(GameController controller) {
-        this.controller = controller;
-    }
-
-
-    public String display(int sizeLine, int sizeColumn, State[][] boardState){
-        return "";
-    }
 
     public void display(String rep){
         System.out.println(rep);
@@ -39,18 +29,19 @@ public class BoardView {
         System.out.println(message);
     }
 
-    public void winGame(String boardRepresentation, State winnerState) {
-        System.out.println(boardRepresentation);
+    public void winGame(String rep, State winnerState) {
+        display(rep);
         System.out.println("Félicitations, le joueur " + winnerState + " a gagné !!!");
     }
 
-    public void drawGame(String boardRepresentation) {
-        System.out.println(boardRepresentation);
+    public void drawGame(String rep) {
+        display(rep);
         System.out.println("Match nul !!! La grille est pleine. Recommencez");
     }
 
-    public void displayBoard(String boardRepresentation){
-        System.out.println(boardRepresentation);
+    public void displayMenu() {
+        System.out.println("Bien le bonjour joueur émérite, à quel jeu désires-tu jouer ?");
+        System.out.println("Tape 1 pour jouer au Morpion, 2 pour jouer au Gomoku, et 3 pour le Puissance 4");
     }
 
 }

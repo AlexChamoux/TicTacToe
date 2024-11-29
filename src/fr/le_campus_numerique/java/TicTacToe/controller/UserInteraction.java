@@ -1,7 +1,8 @@
 
 package fr.le_campus_numerique.java.TicTacToe.controller;
 
-import fr.le_campus_numerique.java.TicTacToe.model.BoardModel;
+import fr.le_campus_numerique.java.TicTacToe.model.GameRules;
+import fr.le_campus_numerique.java.TicTacToe.model.board.Board;
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
 
@@ -15,13 +16,11 @@ public class UserInteraction {
 
     public UserInteraction(){
         this.scanner = new Scanner(System.in);
+        this.boardView = new BoardView();
     }
 
-    public void setBoardView(BoardView boardView) {
-        this.boardView = boardView;
-    }
 
-    public int[] getMoveFromHumanPlayer(State currentPlayerState, BoardModel model, int sizeLine, int sizeColumn) {
+    public int[] getMoveFromHumanPlayer(State currentPlayerState, GameRules model, int sizeLine, int sizeColumn) {
         while (true) {
             try {
                 boardView.displayTextAndVariable(currentPlayerState);
@@ -37,7 +36,7 @@ public class UserInteraction {
                     continue;
                 }
 
-                if (model.getCellState(row, col) != State.EMPTY) {
+                if (!model.isEmpty(row, col)) {
                     boardView.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
                     continue;
                 }
@@ -49,7 +48,7 @@ public class UserInteraction {
         }
     }
 
-    public int[] getMoveFromHumanPlayerConnectFour(State currentPlayerState, BoardModel model, int sizeLine, int sizeColumn) {
+    public int[] getMoveFromHumanPlayerConnectFour(State currentPlayerState, GameRules model, int sizeLine, int sizeColumn) {
         while (true) {
             try {
                 boardView.displayHumanMoveConnectFour(currentPlayerState);
@@ -84,25 +83,21 @@ public class UserInteraction {
 
 
     public int typeOfPlayer(){
-        int choice = 0;
-        if (boardView != null) {
+
             boardView.displayText("Veuillez choisir votre type de partie");
             boardView.displayText("Taper 1 pour joueur vs joueur, 2 pour joueur vs ordinateur et 3 pour ordi vs ordi");
-            choice = getUserInt();
+            int choice = getUserInt();
 
-        }else{
-            System.out.println("boardView est null !!!");
-        }
             return choice;
 
     }
 
-    public int[] getMoveFromComputer(BoardModel model, int sizeLine, int sizeColumn) {
+    public int[] getMoveFromComputer(GameRules model, int sizeLine, int sizeColumn) {
         while (true) {
             int row = secureRandom.nextInt(sizeLine);
             int col = secureRandom.nextInt(sizeColumn);
 
-            if (model.isEmpty(row, col)) {
+            if (!model.isEmpty(row, col)) {
                 System.out.println("Cette case est déjà occupée. Veuillez choisir une autre case.");
                 continue;
             }
@@ -111,7 +106,7 @@ public class UserInteraction {
         }
     }
 
-    public int[] getMoveFromComputerConnectFour(BoardModel model, int sizeLine, int sizeColumn) {
+    public int[] getMoveFromComputerConnectFour(GameRules model, int sizeLine, int sizeColumn) {
         while (true) {
             int col = secureRandom.nextInt(sizeColumn);
 

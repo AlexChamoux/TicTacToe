@@ -1,23 +1,21 @@
-package fr.le_campus_numerique.java.TicTacToe.controller.game;
+package fr.le_campus_numerique.java.TicTacToe.controller;
 
-import fr.le_campus_numerique.java.TicTacToe.controller.GameController;
-import fr.le_campus_numerique.java.TicTacToe.controller.UserInteraction;
-import fr.le_campus_numerique.java.TicTacToe.view.MenuView;
-import fr.le_campus_numerique.java.TicTacToe.view.game.TicTacToeView;
-import fr.le_campus_numerique.java.TicTacToe.view.game.GomokuView;
-import fr.le_campus_numerique.java.TicTacToe.view.game.ConnectFourView;
+import fr.le_campus_numerique.java.TicTacToe.controller.game.ConnectFourController;
+import fr.le_campus_numerique.java.TicTacToe.controller.game.GomokuController;
+import fr.le_campus_numerique.java.TicTacToe.controller.game.TicTacToeController;
+import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
 
 public class MenuController {
-    protected MenuView menuView;
+    protected BoardView boardView;
     protected UserInteraction userInteraction;
 
     public MenuController() {
-        this.menuView = new MenuView();
+        this.boardView = new BoardView();
         this.userInteraction = new UserInteraction();
     }
 
     public void wichGamePlay() {
-        menuView.displayMenu();
+        boardView.displayMenu();
 
         int choice = userInteraction.getUserInt();
 
@@ -25,19 +23,13 @@ public class MenuController {
 
         switch (choice) {
             case 1 -> {
-                TicTacToeView ticTacToeView = new TicTacToeView(null);
-                userInteraction.setBoardView(ticTacToeView);
-                game = new TicTacToeController(ticTacToeView);
+                game = new TicTacToeController();
             }
             case 2 -> {
-                GomokuView gomokuView = new GomokuView(null);
-                userInteraction.setBoardView(gomokuView);
-                game = new GomokuController(gomokuView);
+                game = new GomokuController();
             }
             case 3 -> {
-                ConnectFourView connectFourView = new ConnectFourView(null);
-                userInteraction.setBoardView(connectFourView);
-                game = new ConnectFourController(connectFourView);
+                game = new ConnectFourController();
             }
             default -> throw new IllegalStateException("Choix invalide inattendu.");
         }
@@ -45,24 +37,4 @@ public class MenuController {
         game.start();
     }
 
-//    public void wichGamePlay() {
-//        menuView.displayMenu();
-//        int choice = userInteraction.getUserInt();
-//
-//        switch (choice) {
-//            case 1:
-//                game = new TicTacToeController();
-//                break;
-//            case 2:
-//                game = new GomokuController();
-//                break;
-//            case 3:
-//                game = new ConnectFourController();
-//                break;
-//            default:
-//                boardView.displayText("Choix invalide. Merci de réessayer.");
-//        }
-//
-//        game.start();
-//    }
 }

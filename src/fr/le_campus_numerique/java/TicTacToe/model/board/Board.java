@@ -31,36 +31,18 @@ public class Board {
         return row >= 0 && row < sizeLine && col >= 0 && col < sizeColumn && board[row][col].isEmpty();
     }
 
-
-    public void clear() {
-        for (int i = 0; i < sizeLine; i++) {
-            for (int j = 0; j < sizeColumn; j++) {
-                board[i][j].setState(State.EMPTY);
-            }
-        }
-    }
-
-    public State[][] getBoardState() {
-        State[][] stateBoard = new State[sizeLine][sizeColumn];
-        for (int i = 0; i < sizeLine; i++) {
-            for (int j = 0; j < sizeColumn; j++) {
-                stateBoard[i][j] = board[i][j].getState();
-            }
-        }
-        return stateBoard;
-    }
-
-    public void setCell(int row, int col, State state) {
-        if (row >= 0 && row < sizeLine && col >= 0 && col < sizeColumn) {
-            board[row][col].setState(state);
-        }
-    }
-
     public State getCellState(int row, int col) {
         if (row >= 0 && row < sizeLine && col >= 0 && col < sizeColumn) {
             return board[row][col].getState();
         }
         return null;
+    }
+
+    public boolean setCellState(int row, int col, State state) {
+        if (row >= 0 && row < sizeLine && col >= 0 && col < sizeColumn) {
+            return board[row][col].occupy(state);
+        }
+        return false;
     }
 
     public int getSizeLine() {
@@ -69,6 +51,35 @@ public class Board {
 
     public int getSizeColumn() {
         return sizeColumn;
+    }
+
+    public void clear() {
+        for (int i = 0; i < sizeLine; i++) {
+            for (int j = 0; j < sizeColumn; j++) {
+                board[i][j].clear();
+            }
+        }
+    }
+
+    public String getRepresentation() {
+        String rep = createLine();
+        for (int i = 0; i < sizeLine; i++) {
+            for (int j = 0; j < sizeColumn; j++) {
+                rep = rep + board[i][j].getRepresentation();
+            }
+            rep = rep + "|\n";
+            rep += createLine();
+        }
+        return rep;
+    }
+
+    private String createLine(){
+        String line = "";
+        for (int j = 0; j < sizeColumn; j++) {
+            line = line + Cell.getHorRep();
+        }
+        line = line + "\n";
+        return line;
     }
 
 }

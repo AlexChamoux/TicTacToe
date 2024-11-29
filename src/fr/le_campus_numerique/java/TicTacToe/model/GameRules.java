@@ -5,10 +5,10 @@ import fr.le_campus_numerique.java.TicTacToe.model.board.Board;
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 import fr.le_campus_numerique.java.TicTacToe.model.player.Player;
 
-public class BoardModel {
+public class GameRules {
     protected Board board;
 
-    public BoardModel(Board board) {
+    public GameRules(Board board) {
         this.board = board;
     }
 
@@ -20,8 +20,12 @@ public class BoardModel {
         return board.getCellState(row, col);
     }
 
+//    public State[][] getBoardState(){
+//        return board.getBoardState();
+//    }
+
     public void setOwner(int row, int col, Player currentPlayer) {
-        board.setCell(row, col, currentPlayer.getState());
+        board.setCellState(row, col, currentPlayer.getState());
     }
 
     protected boolean exist(int x, int y) {

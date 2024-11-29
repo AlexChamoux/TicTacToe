@@ -1,7 +1,7 @@
 package fr.le_campus_numerique.java.TicTacToe.controller;
 
 
-import fr.le_campus_numerique.java.TicTacToe.model.BoardModel;
+import fr.le_campus_numerique.java.TicTacToe.model.GameRules;
 import fr.le_campus_numerique.java.TicTacToe.model.board.Board;
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 import fr.le_campus_numerique.java.TicTacToe.model.player.HumanPlayer;
@@ -11,7 +11,7 @@ import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
 
 public abstract class GameController {
     protected UserInteraction userInteraction;
-    protected BoardModel model;
+    protected GameRules model;
     protected BoardView boardView;
     protected Player playerX;
     protected Player playerO;
@@ -20,30 +20,30 @@ public abstract class GameController {
     protected int nbIdenticalCell;
 
 
-    public GameController(int sizeLine, int sizeColumn, int nbIdenticalCell, BoardView view) {
+    public GameController(int sizeLine, int sizeColumn, int nbIdenticalCell) {
         this.board = new Board(sizeLine, sizeColumn);
         this.nbIdenticalCell = nbIdenticalCell;
         this.userInteraction = new UserInteraction();
-        this.model = new BoardModel(board);
-        this.boardView = view;
+        this.model = new GameRules(board);
+        this.boardView = new BoardView();
     }
 
     public void start() {
         definedPlayer();
 
         while (true) {
-            boardView.displayBoard(boardView.display(board.getSizeLine(), board.getSizeColumn(), board.getBoardState()));
+            boardView.display(board.getRepresentation());
 
             move();
 
             if (model.isOver(currentPlayer, nbIdenticalCell)) {
-                boardView.winGame(boardView.display(board.getSizeLine(), board.getSizeColumn(), board.getBoardState()),
+                boardView.winGame(board.getRepresentation(),
                         currentPlayer.getState());
                 break;
             }
 
             if(board.isFull()){
-                boardView.drawGame(boardView.display(board.getSizeLine(), board.getSizeColumn(), board.getBoardState()));
+                boardView.drawGame(board.getRepresentation());
                 break;
             }
 
