@@ -20,8 +20,20 @@ public class Cell {
         this.state = state;
     }
 
+    public boolean occupy(State state){
+        if(this.isEmpty() && state != State.EMPTY){
+            setState(state);
+            return true;
+        }
+        return false;
+    }
+
     public boolean isEmpty(){
         return state == State.EMPTY;
+    }
+
+    public void clear(){
+        setState(State.EMPTY);
     }
 
 }
