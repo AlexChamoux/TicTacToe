@@ -22,7 +22,6 @@ public class BoardView {
         }else{
             System.out.println("Au joueur utilisant les rouges.");
         }
-
     }
 
     public void displayText(String message){
@@ -42,6 +41,10 @@ public class BoardView {
     public void displayMenu() {
         System.out.println("Bien le bonjour joueur émérite, à quel jeu désires-tu jouer ?");
         System.out.println("Tape 1 pour jouer au Morpion, 2 pour jouer au Gomoku, et 3 pour le Puissance 4");
+    }
+
+    public void playAgain(){
+        System.out.println("Voulez-vous rejouer ? (oui/non)");
     }
 
 }

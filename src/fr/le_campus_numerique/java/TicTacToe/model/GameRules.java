@@ -20,10 +20,6 @@ public class GameRules {
         return board.getCellState(row, col);
     }
 
-//    public State[][] getBoardState(){
-//        return board.getBoardState();
-//    }
-
     public void setOwner(int row, int col, Player currentPlayer) {
         board.setCellState(row, col, currentPlayer.getState());
     }

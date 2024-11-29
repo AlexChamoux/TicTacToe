@@ -37,17 +37,27 @@ public abstract class GameController {
             move();
 
             if (model.isOver(currentPlayer, nbIdenticalCell)) {
-                boardView.winGame(board.getRepresentation(),
-                        currentPlayer.getState());
-                break;
+                boardView.winGame(board.getRepresentation(), currentPlayer.getState());
+                playAgain();
             }
 
             if(board.isFull()){
                 boardView.drawGame(board.getRepresentation());
-                break;
+                playAgain();
             }
 
             switchPlayer();
+        }
+    }
+
+    private void playAgain() {
+        boardView.playAgain();
+        String choice = userInteraction.playSameGame();
+        if (choice.equalsIgnoreCase("oui")) {
+            board.clear();
+            start();
+        }else{
+            System.exit(0);
         }
     }
 

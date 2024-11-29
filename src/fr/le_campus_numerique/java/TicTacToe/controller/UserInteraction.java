@@ -146,4 +146,8 @@ public class UserInteraction {
         }
     }
 
+    public String playSameGame(){
+        return scanner.nextLine();
+    }
+
 }
