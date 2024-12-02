@@ -7,11 +7,11 @@ import java.security.SecureRandom;
 public class UserInteraction {
     private final Scanner scanner;
     final SecureRandom secureRandom = new SecureRandom();
-    private BoardView boardView;
+    private final View view;
 
     public UserInteraction(){
         this.scanner = new Scanner(System.in);
-        this.boardView = new BoardView();
+        this.view = new View();
     }
 
     public int getSecRandom(int sizeLine) {
@@ -23,7 +23,7 @@ public class UserInteraction {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                boardView.displayText("Entrée invalide. Veuillez entrer un nombre.");
+                view.displayText("Entrée invalide. Veuillez entrer un nombre.");
             }
         }
     }

@@ -7,13 +7,13 @@ import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 import fr.le_campus_numerique.java.TicTacToe.model.player.HumanPlayer;
 import fr.le_campus_numerique.java.TicTacToe.model.player.ArtificialPlayer;
 import fr.le_campus_numerique.java.TicTacToe.model.player.Player;
-import fr.le_campus_numerique.java.TicTacToe.view.BoardView;
+import fr.le_campus_numerique.java.TicTacToe.view.View;
 import fr.le_campus_numerique.java.TicTacToe.view.UserInteraction;
 
 public abstract class GameController {
     protected UserInteraction userInteraction;
     protected GameRules model;
-    protected BoardView boardView;
+    protected View view;
     protected Player playerX;
     protected Player playerO;
     protected Player currentPlayer;
@@ -29,7 +29,7 @@ public abstract class GameController {
         this.nbIdenticalCell = nbIdenticalCell;
         this.userInteraction = new UserInteraction();
         this.model = new GameRules(board);
-        this.boardView = new BoardView();
+        this.view = new View();
         this.sizeLine = sizeLine;
         this.sizeColumn = sizeColumn;
     }
@@ -38,17 +38,19 @@ public abstract class GameController {
         definedPlayer();
 
         while (true) {
-            boardView.display(board.getRepresentation());
+            view.display(board.getRepresentation());
 
             move();
 
             if (model.isOver(currentPlayer, nbIdenticalCell)) {
-                boardView.winGame(board.getRepresentation(), currentPlayer.getState());
+                String representation = board.getRepresentation();
+                String winnerState = currentPlayer.getState().toString();
+                view.winGame(representation, winnerState);
                 playAgain();
             }
 
             if(board.isFull()){
-                boardView.drawGame(board.getRepresentation());
+                view.drawGame(board.getRepresentation());
                 playAgain();
             }
 
@@ -57,7 +59,7 @@ public abstract class GameController {
     }
 
     private void playAgain() {
-        boardView.playAgain();
+        view.playAgain();
         String choice = userInteraction.getUserString();
         if (choice.equalsIgnoreCase("oui")) {
             board.clear();
@@ -69,8 +71,8 @@ public abstract class GameController {
 
     private void definedPlayer() {
 
-        boardView.displayText("Veuillez choisir votre type de partie");
-        boardView.displayText("Taper 1 pour joueur vs joueur, 2 pour joueur vs ordinateur et 3 pour ordi vs ordi");
+        view.displayText("Veuillez choisir votre type de partie");
+        view.displayText("Taper 1 pour joueur vs joueur, 2 pour joueur vs ordinateur et 3 pour ordi vs ordi");
         int choice = userInteraction.getUserInt();
 
         if (choice == 1) {
@@ -89,24 +91,24 @@ public abstract class GameController {
     public void move() {
 
         if (currentPlayer instanceof HumanPlayer) {
-//            move = userInteraction.getMoveFromHumanPlayer(currentPlayer.getState(), model, board.getSizeLine(), board.getSizeColumn());
 
             while (true) {
-                boardView.displayTextAndVariable(currentPlayer.getState());
+                String player = currentPlayer.getState().toString();
+                view.displayTextAndVariable(player);
 
-                boardView.displayText("Numéro de ligne");
+                view.displayText("Numéro de ligne");
                 int row = userInteraction.getUserInt() - 1;
 
-                boardView.displayText("Numéro de colonne");
+                view.displayText("Numéro de colonne");
                 int col = userInteraction.getUserInt() - 1;
 
                 if (row < 0 || row >= sizeLine || col < 0 || col >= sizeColumn) {
-                    boardView.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et " + sizeColumn + ".");
+                    view.displayText("Coordonnées invalides. Les numéros doivent être entre 1 et " + sizeColumn + ".");
                     continue;
                 }
 
                 if (!model.isEmpty(row, col)) {
-                    boardView.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
+                    view.displayText("Cette case est déjà occupée. Veuillez choisir une autre case.");
                     continue;
                 }
 
@@ -115,7 +117,6 @@ public abstract class GameController {
             }
 
         } else {
-//            move = userInteraction.getMoveFromComputer(model, board.getSizeLine(), board.getSizeColumn());
             while (true) {
                 int row = userInteraction.getSecRandom(sizeLine);
                 int col = userInteraction.getSecRandom(sizeColumn);

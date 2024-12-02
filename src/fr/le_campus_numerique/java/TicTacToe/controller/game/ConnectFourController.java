@@ -1,13 +1,10 @@
 package fr.le_campus_numerique.java.TicTacToe.controller.game;
 
 import fr.le_campus_numerique.java.TicTacToe.controller.GameController;
-import fr.le_campus_numerique.java.TicTacToe.model.GameRules;
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 import fr.le_campus_numerique.java.TicTacToe.model.player.HumanPlayer;
 
 public class ConnectFourController extends GameController {
-//    int sizeLine = 6;
-//    int sizeColumn = 7;
     int[] move;
 
     public ConnectFourController() {
@@ -16,17 +13,19 @@ public class ConnectFourController extends GameController {
 
     public void move() {
         if (currentPlayer instanceof HumanPlayer) {
-//            move = userInteraction.getMoveFromHumanPlayerConnectFour(currentPlayer.getState(), model, board.getSizeLine(), board.getSizeColumn());
-
+            view.displayText("Veuillez sélectionner une colonne pour mettre votre jeton");
             while (true) {
+                if(currentPlayer.getState() == State.X) {
+                    view.displayTextAndVariable("X");
+                }else if (currentPlayer.getState() == State.O) {
+                    view.displayTextAndVariable("O");
+                }
 
-                boardView.displayHumanMoveConnectFour(currentPlayer.getState());
-
-                boardView.displayText("Numéro de colonne");
+                view.displayText("Numéro de colonne");
                 int col = userInteraction.getUserInt() - 1;
 
                 if (col < 0 || col >= sizeColumn) {
-                    boardView.displayText("Colonne invalide. Veuillez entrer un numéro entre 1 et " + sizeColumn + ".");
+                    view.displayText("Colonne invalide. Veuillez entrer un numéro entre 1 et " + sizeColumn + ".");
                     continue;
                 }
 
@@ -39,7 +38,7 @@ public class ConnectFourController extends GameController {
                 }
 
                 if (row == -1) {
-                    boardView.displayText("Cette colonne est pleine. Veuillez choisir une autre colonne.");
+                    view.displayText("Cette colonne est pleine. Veuillez choisir une autre colonne.");
                     continue;
                 }
 
@@ -48,13 +47,12 @@ public class ConnectFourController extends GameController {
             }
 
         } else {
-//            move = userInteraction.getMoveFromComputerConnectFour(model, board.getSizeLine(), board.getSizeColumn());
 
             while (true) {
                 int col = userInteraction.getSecRandom(sizeColumn);
 
                 if (col < 0 || col >= sizeColumn) {
-                    boardView.displayText("Colonne invalide. Veuillez entrer un numéro entre 1 et " + sizeColumn + ".");
+                    view.displayText("Colonne invalide. Veuillez entrer un numéro entre 1 et " + sizeColumn + ".");
                     continue;
                 }
 
@@ -67,7 +65,7 @@ public class ConnectFourController extends GameController {
                 }
 
                 if (row == -1) {
-                    boardView.displayText("Cette colonne est pleine. Veuillez choisir une autre colonne.");
+                    view.displayText("Cette colonne est pleine. Veuillez choisir une autre colonne.");
                     continue;
                 }
 

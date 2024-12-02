@@ -2,31 +2,23 @@ package fr.le_campus_numerique.java.TicTacToe.view;
 
 import fr.le_campus_numerique.java.TicTacToe.model.board.State;
 
-public class BoardView {
+public class View {
 
     public void display(String rep){
         System.out.println(rep);
     }
 
-    public void displayTextAndVariable(State currentPlayerState){
+    public void displayTextAndVariable(String message){
         System.out.println("Veuillez sélectionner l'emplacement de votre coup en le désignant par un numéro.");
-        System.out.println("Au joueur utilisant les " + currentPlayerState + ". Entrez votre coup.");
-    }
-
-    public void displayHumanMoveConnectFour(State currentPlayerState){
-        System.out.println("Veuillez sélectionner une colonne pour mettre votre jeton");
-        if(currentPlayerState == State.X) {
-            System.out.println("Au joueur utilisant les bleus. Entrez votre coup.");
-        }else{
-            System.out.println("Au joueur utilisant les rouges.");
-        }
+        System.out.println("Au joueur utilisant les " + message + ". Entrez votre coup.");
     }
 
     public void displayText(String message){
         System.out.println(message);
     }
 
-    public void winGame(String rep, State winnerState) {
+
+    public void winGame(String rep, String winnerState) {
         display(rep);
         System.out.println("Félicitations, le joueur " + winnerState + " a gagné !!!");
     }
